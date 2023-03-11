@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Weather Detector",
-  "description": "Adds a block that outputs a redstone signal based on the current weather.",
+  "description": "Adds a Weather Detector block that outputs a redstone signal based on the current weather.",
   "authors": [
     "Amara M. Angel (tanukibouwer)"
   ],
