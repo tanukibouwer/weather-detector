@@ -1,0 +1,35 @@
+# Fabric Src
+
+# gradle
+fabric_src/.gradle/
+fabric_src/build/
+fabric_src/out/
+fabric_src/classes/
+
+# eclipse
+fabric_src/*.launch
+
+# idea
+fabric_src/.idea/
+fabric_src/*.iml
+fabric_src/*.ipr
+fabric_src/*.iws
+
+# vscode
+fabric_src/.settings/
+fabric_src/.vscode/
+fabric_src/bin/
+fabric_src/.classpath
+fabric_src/.project
+
+# macos
+fabric_src/*.DS_Store
+
+# fabric
+fabric_src/run/
+
+# java
+fabric_src/hs_err_*.log
+fabric_src/replay_*.log
+fabric_src/*.hprof
+fabric_src/*.jfr

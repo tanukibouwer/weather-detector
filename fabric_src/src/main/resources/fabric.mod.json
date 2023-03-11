@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "weatherdetector",
+  "version": "${version}",
+
+  "name": "Weather Detector",
+  "description": "Adds a block that outputs a redstone signal based on the current weather.",
+  "authors": [
+    "Amara M. Angel (tanukibouwer)"
+  ],
+  "contact": {
+    "sources": "https://github.com/tanukibouwer/weather-detector",
+    "homepage": "https://github.com/tanukibouwer/weather-detector",
+    "issues": "https://github.com/tanukibouwer/weather-detector/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/weatherdetector/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "nl.qudical.weatherdetector.WeatherDetector"
+    ]
+  },
+  "mixins": [
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.14",
+    "fabric-api": "*",
+    "minecraft": "~1.19.3",
+    "java": ">=17"
+  },
+  "suggests": {
+  }
+}

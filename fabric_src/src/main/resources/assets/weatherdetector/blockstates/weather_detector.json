@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "inverted=false": { "model": "weatherdetector:block/weather_detector" },
+    "inverted=true": { "model": "weatherdetector:block/weather_detector_inverted" }
+  }
+}
