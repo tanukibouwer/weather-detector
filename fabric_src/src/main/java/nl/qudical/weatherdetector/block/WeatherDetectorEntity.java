@@ -16,7 +16,7 @@ public class WeatherDetectorEntity extends BlockEntity {
     public static void tick(World world, BlockPos pos, BlockState state, WeatherDetectorEntity be) {
         if (!world.isClient) {
             int power = 0;
-            if (world.getBiome(pos).value().getPrecipitation() != Biome.Precipitation.NONE) {
+            if (world.getBiome(pos).value().getPrecipitation(pos) != Biome.Precipitation.NONE) {
                 // Block outputs a redstone signal of strength 1-8 if it's raining...
                 if (world.getRainGradient(1.0F) > 0.2) {
                     power = (int)(world.getRainGradient(1.0F) * 8.0F);
