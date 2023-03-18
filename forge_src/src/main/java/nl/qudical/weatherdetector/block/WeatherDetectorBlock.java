@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -76,8 +77,8 @@ public class WeatherDetectorBlock extends Block implements EntityBlock {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(Component.translatable("block.weatherdetector.weather_detector.tooltip_1").withStyle(ChatFormatting.GRAY));
-        pTooltip.add(Component.translatable("block.weatherdetector.weather_detector.tooltip_2").withStyle(ChatFormatting.GRAY));
-        pTooltip.add(Component.translatable("block.weatherdetector.weather_detector.tooltip_3").withStyle(ChatFormatting.GRAY));
+        pTooltip.add(new TranslatableComponent("block.weatherdetector.weather_detector.tooltip_1").withStyle(ChatFormatting.GRAY));
+        pTooltip.add(new TranslatableComponent("block.weatherdetector.weather_detector.tooltip_2").withStyle(ChatFormatting.GRAY));
+        pTooltip.add(new TranslatableComponent("block.weatherdetector.weather_detector.tooltip_3").withStyle(ChatFormatting.GRAY));
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -63,9 +64,9 @@ public class WeatherDetector extends BlockWithEntity {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
-        tooltip.add(Text.translatable("block.weatherdetector.weather_detector.tooltip_1").formatted(Formatting.GRAY));
-        tooltip.add(Text.translatable("block.weatherdetector.weather_detector.tooltip_2").formatted(Formatting.GRAY));
-        tooltip.add(Text.translatable("block.weatherdetector.weather_detector.tooltip_3").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("block.weatherdetector.weather_detector.tooltip_1").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("block.weatherdetector.weather_detector.tooltip_2").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("block.weatherdetector.weather_detector.tooltip_3").formatted(Formatting.GRAY));
     }
 
     @Override
