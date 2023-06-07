@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroups;
@@ -24,7 +23,7 @@ public class WeatherDetector implements ModInitializer {
     // It is considered best practice to use your mod id as the logger's name.
     // That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger("weatherdetector");
-    public static final Block WEATHER_DETECTOR = new nl.qudical.weatherdetector.block.WeatherDetector(FabricBlockSettings.of(Material.STONE, MapColor.STONE_GRAY).strength(2.0f, 6.0f).requiresTool());
+    public static final Block WEATHER_DETECTOR = new nl.qudical.weatherdetector.block.WeatherDetector(FabricBlockSettings.create().mapColor(MapColor.STONE_GRAY).strength(2.0f, 6.0f).requiresTool());
     public static final BlockEntityType<WeatherDetectorEntity> WEATHER_DETECTOR_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
             new Identifier("weatherdetector", "weather_detector_entity"),
