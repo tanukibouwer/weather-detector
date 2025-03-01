@@ -6,11 +6,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,7 +29,7 @@ public class WeatherDetector
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
 
 
-    public static final RegistryObject<Block> WEATHER_DETECTOR = BLOCKS.register("weather_detector", () -> new WeatherDetectorBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).strength(2.0f, 6.0f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> WEATHER_DETECTOR = BLOCKS.register("weather_detector", () -> new WeatherDetectorBlock(BlockBehaviour.Properties.of().strength(2.0f, 6.0f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
     public static final RegistryObject<BlockEntityType<WeatherDetectorBlockEntity>> WEATHER_DETECTOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("weatherdetectorblockentity", () -> BlockEntityType.Builder.of(WeatherDetectorBlockEntity::new, WEATHER_DETECTOR.get()).build(null));
     public static final RegistryObject<Item> WEATHER_DETECTOR_ITEM = ITEMS.register("weather_detector", () -> new BlockItem(WEATHER_DETECTOR.get(), new Item.Properties()));
 
@@ -44,12 +44,14 @@ public class WeatherDetector
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::buildContents);
     }
 
-    private void addCreative(CreativeModeTabEvent.BuildContents event)
-    {
-        if (event.getTab() == CreativeModeTabs.REDSTONE_BLOCKS)
-            event.getEntries().putAfter(new ItemStack(Items.DAYLIGHT_DETECTOR), new ItemStack(WEATHER_DETECTOR_ITEM.get()), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+    @SubscribeEvent
+    public void buildContents(BuildCreativeModeTabContentsEvent event) {
+        // Add to ingredients tab
+        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
+            event.accept(WEATHER_DETECTOR_ITEM);
+        }
     }
 }
