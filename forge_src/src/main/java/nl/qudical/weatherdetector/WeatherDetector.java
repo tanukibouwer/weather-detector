@@ -1,55 +1,42 @@
 package nl.qudical.weatherdetector;
 
-import com.mojang.logging.LogUtils;
-import net.minecraft.world.item.*;
+import java.util.function.Supplier;
+
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import nl.qudical.weatherdetector.block.WeatherDetectorBlock;
-import nl.qudical.weatherdetector.block.WeatherDetectorBlockEntity;
-import org.slf4j.Logger;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 @Mod(WeatherDetector.MODID)
-public class WeatherDetector
-{
+public class WeatherDetector {
     public static final String MODID = "weatherdetector";
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
 
+    public static final DeferredBlock<Block> WEATHER_DETECTOR = BLOCKS.register("weather_detector", () -> new WeatherDetectorBlock(BlockBehaviour.Properties.of().strength(2.0f, 6.0f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
+    public static final DeferredItem<BlockItem> WEATHER_DETECTOR_ITEM = ITEMS.registerItem("weather_detector", WeatherDetectorBlockItem::new, new Item.Properties());
+    public static final Supplier<BlockEntityType<WeatherDetectorBlockEntity>> WEATHER_DETECTOR_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register("weather_detector_blockentity", () -> BlockEntityType.Builder.of(WeatherDetectorBlockEntity::new, WEATHER_DETECTOR.get()).build(null));
 
-    public static final RegistryObject<Block> WEATHER_DETECTOR = BLOCKS.register("weather_detector", () -> new WeatherDetectorBlock(BlockBehaviour.Properties.of().strength(2.0f, 6.0f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
-    public static final RegistryObject<BlockEntityType<WeatherDetectorBlockEntity>> WEATHER_DETECTOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("weatherdetectorblockentity", () -> BlockEntityType.Builder.of(WeatherDetectorBlockEntity::new, WEATHER_DETECTOR.get()).build(null));
-    public static final RegistryObject<Item> WEATHER_DETECTOR_ITEM = ITEMS.register("weather_detector", () -> new BlockItem(WEATHER_DETECTOR.get(), new Item.Properties()));
-
-    public WeatherDetector()
-    {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public WeatherDetector(IEventBus modEventBus, ModContainer modContainer) {
         BLOCKS.register(modEventBus);
-
         ITEMS.register(modEventBus);
-        BLOCK_ENTITIES.register(modEventBus);
-
-        MinecraftForge.EVENT_BUS.register(this);
-
-        modEventBus.addListener(this::buildContents);
+        BLOCK_ENTITY_TYPES.register(modEventBus);
+        modEventBus.addListener(this::addCreative);
     }
 
-    @SubscribeEvent
-    public void buildContents(BuildCreativeModeTabContentsEvent event) {
-        // Add to ingredients tab
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             event.accept(WEATHER_DETECTOR_ITEM);
         }
