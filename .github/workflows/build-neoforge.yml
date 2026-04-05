@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./forge_src
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,7 +27,7 @@ jobs:
       # This is needed to be able to run ./gradlew below
       # You can run `git update-index --chmod +x gradlew` then remove this step.
       - name: Make Gradle wrapper executable
-        run: chmod +x ./forge_src/gradlew
+        run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./forge_src/gradlew build
+        run: ./gradlew build
