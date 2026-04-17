@@ -17,7 +17,7 @@
     }
   },
   "result": {
-    "item": "weatherdetector:weather_detector",
+    "id": "weatherdetector:weather_detector",
     "count": 1
   }
 }

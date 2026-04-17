@@ -10,6 +10,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.MapColor;
 
 public class WeatherDetector implements ModInitializer {
 	public static final String MOD_ID = "weatherdetector";
@@ -17,7 +18,7 @@ public class WeatherDetector implements ModInitializer {
 	public static final ResourceLocation BLOCK_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "weather_detector");
 	public static final Block WEATHER_DETECTOR = Registry.register(
 			BuiltInRegistries.BLOCK, BLOCK_ID,
-			new WeatherDetectorBlock(Block.Properties.of()));
+			new WeatherDetectorBlock(Block.Properties.of().strength(2.0f, 6.0f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final BlockItem WEATHER_DETECTOR_ITEM = Registry.register(
 			BuiltInRegistries.ITEM, BLOCK_ID,
 			new WeatherDetectorBlockItem(new BlockItem.Properties()));
